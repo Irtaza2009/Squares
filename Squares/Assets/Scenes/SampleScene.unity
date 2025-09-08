@@ -225,6 +225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   data: {fileID: 11400000, guid: 6ef8611bf7be5834e981ccc47a815f23, type: 2}
+  projectilePrefab: {fileID: 1441993390329405322, guid: 2d5f180304713f642b445ccab8176553, type: 3}
 --- !u!212 &214804084
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -405,6 +406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   data: {fileID: 11400000, guid: 815aef8d3ddedc84e9fc44cbdebd8dda, type: 2}
+  projectilePrefab: {fileID: 0}
 --- !u!212 &304360656
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1055,6 +1057,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   data: {fileID: 11400000, guid: da4e2b25a8663aa439289a6d26a1d97b, type: 2}
+  projectilePrefab: {fileID: 0}
 --- !u!212 &1973753123
 SpriteRenderer:
   m_ObjectHideFlags: 0

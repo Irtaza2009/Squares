@@ -19,6 +19,8 @@ public class Unit : MonoBehaviour
     private CircleCollider2D attackRangeCollider;
     private BoxCollider2D bodyCollider;
 
+    public GameObject projectilePrefab; // only for ranged units
+
     void Start()
     {
         currentHealth = data.maxHealth;
@@ -115,8 +117,18 @@ public class Unit : MonoBehaviour
     {
         if (CanAttack())
         {
-            Debug.Log($"{data.unitName} attacks {target.data.unitName} for {data.attackDamage} damage");
-            target.TakeDamage(data.attackDamage);
+            if (projectilePrefab != null) // ranged attack
+            {
+                Debug.Log($"{data.unitName} shoots at {target.data.unitName}");
+                GameObject proj = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+                proj.GetComponent<Projectile>().Initialize(target, data.attackDamage, 10f); // speed = 10
+            }
+            else // melee attack
+            {
+                Debug.Log($"{data.unitName} attacks {target.data.unitName} for {data.attackDamage} damage");
+                target.TakeDamage(data.attackDamage);
+            }
+
             attackTimer = data.attackCooldown;
         }
     }
