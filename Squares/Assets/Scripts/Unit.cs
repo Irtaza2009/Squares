@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class Unit : MonoBehaviour
@@ -26,9 +27,16 @@ public class Unit : MonoBehaviour
         currentHealth = data.maxHealth;
 
         // Visual color
+        /*
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
             spriteRenderer.color = data.color;
+        */
+
+        // Sprite setup
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+            spriteRenderer.sprite = data.idleSprite;
 
         // Find child circle collider for attack range
         attackRangeCollider = GetComponentInChildren<CircleCollider2D>();
@@ -121,7 +129,7 @@ public class Unit : MonoBehaviour
             {
                 Debug.Log($"{data.unitName} shoots at {target.data.unitName}");
                 GameObject proj = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-                proj.GetComponent<Projectile>().Initialize(target, data.attackDamage, 10f); // speed = 10
+                proj.GetComponent<Projectile>().Initialize(target, data.attackDamage, 10f, data.attackRange); // speed = 10
             }
             else // melee attack
             {
@@ -130,7 +138,23 @@ public class Unit : MonoBehaviour
             }
 
             attackTimer = data.attackCooldown;
+
+            // Play attack animation
+            StartCoroutine(PlayAttackAnimation());
         }
+    }
+
+    private IEnumerator PlayAttackAnimation()
+    {
+        if (spriteRenderer == null) yield break;
+
+        // Attack frames
+        if (data.attackFrame1 != null) { spriteRenderer.sprite = data.attackFrame1; yield return new WaitForSeconds(0.1f); }
+        if (data.attackFrame2 != null) { spriteRenderer.sprite = data.attackFrame2; yield return new WaitForSeconds(0.1f); }
+        if (data.attackFinalFrame != null) { spriteRenderer.sprite = data.attackFinalFrame; yield return new WaitForSeconds(0.15f); }
+
+        // Back to idle
+        spriteRenderer.sprite = data.idleSprite;
     }
 
     // Trigger (child circle collider = attack range)
@@ -141,13 +165,17 @@ public class Unit : MonoBehaviour
 
         if (otherUnit != null && otherUnit != this && other == otherUnit.bodyCollider)
         {
-            if (!enemiesInRange.Contains(otherUnit))
-                enemiesInRange.Add(otherUnit);
-
-            if (targetEnemy == null)
+            if ((CompareTag("Player1") && otherUnit.CompareTag("Enemy")) ||
+               (CompareTag("Enemy") && otherUnit.CompareTag("Player1")))
             {
-                targetEnemy = otherUnit;
-                Debug.Log($"{data.unitName} targeting {otherUnit.data.unitName}");
+                if (!enemiesInRange.Contains(otherUnit))
+                    enemiesInRange.Add(otherUnit);
+
+                if (targetEnemy == null)
+                {
+                    targetEnemy = otherUnit;
+                    Debug.Log($"{data.unitName} targeting {otherUnit.data.unitName}");
+                }
             }
         }
     }

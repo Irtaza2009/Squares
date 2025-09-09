@@ -21,3 +21,7 @@ MonoBehaviour:
   attackDamage: 15
   attackCooldown: 1.5
   isKing: 0
+  idleSprite: {fileID: -1657271912049098141, guid: e20f2c38788b47b4b9d5e99ac8bbd49d, type: 3}
+  attackFrame1: {fileID: -8519757723599617921, guid: e20f2c38788b47b4b9d5e99ac8bbd49d, type: 3}
+  attackFrame2: {fileID: -4375930707328112202, guid: e20f2c38788b47b4b9d5e99ac8bbd49d, type: 3}
+  attackFinalFrame: {fileID: 2569963128575813788, guid: e20f2c38788b47b4b9d5e99ac8bbd49d, type: 3}

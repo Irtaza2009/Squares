@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
             if (hit.collider != null)
             {
                 Unit unit = hit.collider.GetComponentInParent<Unit>();
-                if (unit != null)
+                if (unit != null && unit.tag == "Player1")
                 {
                     selectedUnit = unit;
                     Debug.Log($"Selected {unit.data.unitName}");

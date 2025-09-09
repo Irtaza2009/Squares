@@ -17,4 +17,10 @@ public class UnitData : ScriptableObject
 
     [Header("Special")]
     public bool isKing;
+
+    [Header("Sprites / Animation Frames")]
+    public Sprite idleSprite;            // default frame
+    public Sprite attackFrame1;          // first attack motion
+    public Sprite attackFrame2;          // second attack motion
+    public Sprite attackFinalFrame;      // final hit frame
 }
